@@ -13,13 +13,17 @@ if ($conn->connect_error) {
 }
 echo "Koneksi Database Berhasil";
 
+echo "\n";
+
 // Membuat db
 $sql = "CREATE DATABASE tugas_db";
 if ($conn->query($sql) === TRUE) {
-   echo "Database created successfully";
+   echo "Database berhasil dibuat";
 } else {
-   echo "Error creating database: " . $conn->error;
+   echo "Error : " . $conn->error;
 }
+
+echo "\n";
 
 // Memilih database yang akan digunakan
 $conn->select_db("tugas_db");
@@ -38,6 +42,8 @@ if ($conn->query($sql) === TRUE) {
    echo "gagal membuat tabel: " . $conn->error;
 }
 
+echo "\n";
+
 // Insert data into table
 $sql = "INSERT INTO barang VALUES ('Pulpen', 4000, 150)";
 if ($conn->query($sql) === TRUE) {
@@ -45,6 +51,8 @@ if ($conn->query($sql) === TRUE) {
 } else {
    echo "Error: " . $sql . "<br>" . $conn->error;
 }
+
+echo "\n";
 
 // Update data in table
 $sql = "UPDATE barang SET nama_barang='Buku' WHERE id=1";
