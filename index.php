@@ -5,11 +5,11 @@ $password = "26nov2003";
 $dbname = "tugas_php";
 
 // Membuat koneksi
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 // Cek koneksi
-if ($conn->connect_error) {
-   die("Koneksi Database Gagal: " . $conn->connect_error);
+if (!$conn) {
+   die("Koneksi Database Gagal");
 }
 echo "Koneksi Database Berhasil";
 
@@ -17,16 +17,16 @@ echo "\n";
 
 // Membuat db
 $sql = "CREATE DATABASE tugas_db";
-if ($conn->query($sql) === TRUE) {
+if (mysqli_query($conn, $sql)) {
    echo "Database berhasil dibuat";
 } else {
-   echo "Error : " . $conn->error;
+   echo "Error : " . mysqli_error($conn);
 }
 
 echo "\n";
 
 // Memilih database yang akan digunakan
-$conn->select_db("tugas_db");
+mysqli_select_db($conn, "tugas_db");
 
 // Membuat tabel barang
 $sql = "CREATE TABLE barang (
@@ -36,29 +36,29 @@ $sql = "CREATE TABLE barang (
    stok_barang INT NOT NULL
 )";
 
-if ($conn->query($sql) === TRUE) {
+if (mysqli_query($conn, $sql)) {
    echo "Tabel barang berhasil dibuat";
 } else {
-   echo "gagal membuat tabel: " . $conn->error;
+   echo "gagal membuat tabel: " . mysqli_error($conn);
 }
 
 echo "\n";
 
 // Insert data into table
 $sql = "INSERT INTO barang VALUES ('Pulpen', 4000, 150)";
-if ($conn->query($sql) === TRUE) {
+if (mysqli_query($conn, $sql)) {
    echo "Berhasil menambahkan data ke tabel";
 } else {
-   echo "Error: " . $sql . "<br>" . $conn->error;
+   echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
 echo "\n";
 
 // Update data in table
 $sql = "UPDATE barang SET nama_barang='Buku' WHERE id=1";
-if ($conn->query($sql) === TRUE) {
+if (mysqli_query($conn, $sql)) {
    echo "Berhasil mengupdate data barang";
 } else {
-   echo "Error : " . $conn->error;
+   echo "Error : " . mysqli_error($conn);
 }
 ?>
